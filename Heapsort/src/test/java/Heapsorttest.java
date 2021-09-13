@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.net.Inet4Address;
+
 import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
@@ -37,4 +39,14 @@ public class Heapsorttest {
         Heapsort.sort(input);
         assertArrayEquals(answer, input);
     }
+
+    @Test
+    public void test_5() {
+        int[] input = new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 6, -123, 32, 3};
+        int[] answer = new int[]{Integer.MIN_VALUE, -123, 1, 3, 6, 32, Integer.MAX_VALUE};
+        Heapsort.sort(input);
+        assertArrayEquals(answer, input);
+    }
+
+
 }
