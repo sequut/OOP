@@ -3,7 +3,7 @@ public class Heapsort {
      * Heap sort
      * @param aa - array to sort
      */
-    public static void sort(int aa[]) {
+    public static void sort(int[] aa) {
         int n = aa.length;
 
         for (int i = n / 2 - 1; i >= 0; i--)
@@ -25,7 +25,7 @@ public class Heapsort {
      * @param i parent node
      */
 
-    static  void heapify(int aa[], int n, int i) {
+    static  void heapify(int[] aa, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
