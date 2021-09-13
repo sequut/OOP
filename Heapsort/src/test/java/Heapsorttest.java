@@ -39,6 +39,4 @@ public class Heapsorttest {
         Heapsort.sort(input);
         assertArrayEquals(answer, input);
     }
-
-
 }
