@@ -6,12 +6,12 @@ import java.lang.*;
 import java.util.*;
 
 public class Kmp {
-    //algorithm knuth morris pratt
 
     /**
      * @param stroka string which we should find
      * @return returns array with indexes
      */
+
     private static int[] prefixfunc(String stroka){
         int[] pref = new int[stroka.length()];
         for (int i = 1; i<stroka.length(); i++){
@@ -34,8 +34,11 @@ public class Kmp {
      */
 
     public Integer[] kmp(String string, String substring) throws IOException {
+        if (substring.length() == 0)
+            return null;
+
         int[] pref = prefixfunc(substring);
-        int len = string.length();
+        int len = substring.length();
 
         ArrayList<Integer> answer = new ArrayList<>();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(string));
@@ -43,7 +46,7 @@ public class Kmp {
         int ch = bufferedReader.read();
         int j = 0;
 
-        for (int i = 0; ch != 0; i++){
+        for (int i = 0; ch != -1; i++){
             char c = (char) ch;
             ch = bufferedReader.read();
             while(j > 0 && c != substring.charAt(j))
@@ -58,7 +61,7 @@ public class Kmp {
         Integer[] answ = {-1};
         answ = (answer.toArray(answ));
 
-        if (answ[0] != -1)
+        if (answ[0] != null)
             return answ;
         else
             return null;
