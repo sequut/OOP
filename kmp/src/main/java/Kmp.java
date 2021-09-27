@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.*;
@@ -8,6 +7,13 @@ import java.util.*;
 public class Kmp {
 
     /**
+     *
+     * the prefix function builds an array with numbers,
+     * where numbers are the maximum prefixes
+     * that match the suffixes of the string,
+     * while the indices of this array are
+     * the number of characters that are included in the string
+     *
      * @param stroka string which we should find
      * @return returns array with indexes
      */
@@ -28,6 +34,10 @@ public class Kmp {
     }
 
     /**
+     *
+     * kmp finds an array of occurrences of a substring in a string
+     * by calling the prefix function
+     *
      * @param string string where we should find
      * @param substring what we should find
      * @return array with indexes of substring in string
@@ -58,12 +68,9 @@ public class Kmp {
                 j = pref[j - 1];
             }
         }
-        Integer[] answ = {-1};
-        answ = (answer.toArray(answ));
 
-        if (answ[0] != null)
-            return answ;
-        else
-            return null;
-        }
+        Integer[] answ = new Integer[]{};
+        answ = (answer.toArray(answ));
+        return answ;
+    }
 }
