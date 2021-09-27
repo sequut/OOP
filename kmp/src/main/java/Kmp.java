@@ -7,9 +7,10 @@ import java.util.*;
 
 public class Kmp {
     //algorithm knuth morris pratt
+
     /**
      * @param stroka string which we should find
-     * @return
+     * @return returns array with indexes
      */
     private static int[] prefixfunc(String stroka){
         int[] pref = new int[stroka.length()];
@@ -36,7 +37,7 @@ public class Kmp {
         int[] pref = prefixfunc(substring);
         int len = string.length();
 
-        ArrayList<Integer> answer = new ArrayList<Integer>();
+        ArrayList<Integer> answer = new ArrayList<>();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(string));
 
         int ch = bufferedReader.read();
@@ -62,4 +63,5 @@ public class Kmp {
         else
             return null;
         }
+
 }
