@@ -63,5 +63,4 @@ public class Kmp {
         else
             return null;
         }
-
 }
