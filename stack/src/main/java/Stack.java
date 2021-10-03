@@ -1,11 +1,13 @@
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 public class Stack<Type> implements Iterable<Type> {
 
     private int count = 0;
-    private ArrayList<Type> stack = new ArrayList<>();
+    private int max_len = 0;
+
+    @SuppressWarnings("unchecked")
+    private Type[] stack = (Type[]) new Object[0];
 
     /**
      * returns number of elements in stack
@@ -20,8 +22,11 @@ public class Stack<Type> implements Iterable<Type> {
      * @param aa - item
      */
     public void push(Type aa){
-        stack.add(aa);
-        count += 1;
+        if (count == max_len){
+            max_len = max_len * 2 + 1;
+            stack = Arrays.copyOf(stack, max_len);
+        }
+        stack[count++] = aa;
     }
 
     /**
@@ -29,16 +34,27 @@ public class Stack<Type> implements Iterable<Type> {
      * @param aa - array with items
      */
     public void pushStack(Type[] aa){
-        stack.addAll(List.of(aa));
-        count += aa.length;
+        for (Type type : aa) {
+            if (count == max_len) {
+                max_len = max_len * 2 + 1;
+                stack = Arrays.copyOf(stack, max_len);
+            }
+            stack[count++] = type;
+        }
     }
 
     /**
      * delete one element from stack
      */
     public void pop(){
-        if (count > 0)
-            stack.remove(--count);
+        try {
+            stack[count - 1] = stack[count - 1];
+            count -= 1;
+        }
+        catch (IndexOutOfBoundsException e){
+            count = 0;
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -46,15 +62,13 @@ public class Stack<Type> implements Iterable<Type> {
      * @param number - how many items we should delete
      */
     public void popStack(int number){
-        for (int i = 0; i < number; i++) {
-            try {
-                stack.remove(count - 1);
-                count -= 1;
-            }
-            catch (IndexOutOfBoundsException e){
-                count = 0;
-                break;
-            }
+        try {
+            stack[count - number] = stack[count - number];
+            count -= number;
+        }
+        catch (IndexOutOfBoundsException e){
+            count = 0;
+            System.err.println(e.getMessage());
         }
     }
 
@@ -63,7 +77,7 @@ public class Stack<Type> implements Iterable<Type> {
      */
     public void write(){
         for (int i = 0; i < count; i++)
-            System.out.println(stack.get(i));
+            System.out.println(stack[i]);
         System.out.println();
     }
 
@@ -79,7 +93,7 @@ public class Stack<Type> implements Iterable<Type> {
 
             @Override
             public Type next() {
-                return stack.get(index++);
+                return stack[index++];
             }
         };
     }
