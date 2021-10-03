@@ -35,6 +35,9 @@ public class StackTest {
 
         test.pop();
         assertEquals(0, test.count());
+
+        test.popStack(2);
+        assertEquals(0, test.count());
     }
 
     @Test
@@ -65,6 +68,9 @@ public class StackTest {
         assertEquals(0, test.count());
 
         test.pop();
+        assertEquals(0, test.count());
+
+        test.popStack(2);
         assertEquals(0, test.count());
     }
 }

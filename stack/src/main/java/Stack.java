@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Stack<Type> implements Iterable<Type> {
 
@@ -28,10 +29,8 @@ public class Stack<Type> implements Iterable<Type> {
      * @param aa - array with items
      */
     public void pushStack(Type[] aa){
-        for (Type type : aa) {
-            stack.add(type);
-            count += 1;
-        }
+        stack.addAll(List.of(aa));
+        count += aa.length;
     }
 
     /**
@@ -48,8 +47,14 @@ public class Stack<Type> implements Iterable<Type> {
      */
     public void popStack(int number){
         for (int i = 0; i < number; i++) {
-            stack.remove(count - 1);
-            count -= 1;
+            try {
+                stack.remove(count - 1);
+                count -= 1;
+            }
+            catch (IndexOutOfBoundsException e){
+                count = 0;
+                break;
+            }
         }
     }
 
