@@ -43,7 +43,7 @@ public class KmpTest {
             assertArrayEquals(help, check);
         }
         catch (FileNotFoundException e){
-            System.out.println("Such file doesn't exist!!");
+            System.err.println(e.getMessage());
         }
     }
 }
