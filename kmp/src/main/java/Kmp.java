@@ -44,14 +44,19 @@ public class Kmp {
      */
 
     public Integer[] kmp(String string, String substring) throws IOException {
-        if (substring.length() == 0)
-            return null;
+        if (substring == null || substring.length() == 0)
+            throw new IOException("substring is null");
 
         int[] pref = prefixfunc(substring);
         int len = substring.length();
 
         ArrayList<Integer> answer = new ArrayList<>();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(string));
+        BufferedReader bufferedReader;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(string));
+        } catch (IOException e) {
+            throw new IOException("no such file");
+        }
 
         int ch = bufferedReader.read();
         int j = 0;

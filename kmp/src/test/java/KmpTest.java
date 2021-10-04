@@ -20,6 +20,7 @@ public class KmpTest {
     @Test
     public void check_empty_file() throws IOException {
         Kmp aa = new Kmp();
+
         Integer[] check = aa.kmp("test2.txt", "test");
         Integer[] help = new Integer[]{};
         assertArrayEquals(help, check);
@@ -35,15 +36,21 @@ public class KmpTest {
     }
 
     @Test
-    public void check_with_no_existing_file() throws IOException {
+    public void check_with_no_existing_file(){
         Kmp aa = new Kmp();
-        try{
+        Throwable thrown = assertThrows(IOException.class, () -> {
             Integer[] check = aa.kmp("test666.txt", "abv");
-            Integer[] help = new Integer[]{};
-            assertArrayEquals(help, check);
-        }
-        catch (FileNotFoundException e){
-            System.err.println(e.getMessage());
-        }
+        });
+        assertEquals(thrown.getMessage(), "no such file");
+    }
+
+
+    @Test
+    public void check_with_no_existing_substring(){
+        Kmp aa = new Kmp();
+        Throwable thrown = assertThrows(IOException.class, () -> {
+            Integer[] check = aa.kmp("test2.txt", "");
+        });
+        assertEquals(thrown.getMessage(), "substring is null");
     }
 }
