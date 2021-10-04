@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class Stack<Type> implements Iterable<Type> {
+public class Stack<Type>{
 
     private int count = 0;
     private int max_len = 0;
@@ -79,22 +79,5 @@ public class Stack<Type> implements Iterable<Type> {
         for (int i = 0; i < count; i++)
             System.out.println(stack[i]);
         System.out.println();
-    }
-
-    @Override
-    public Iterator<Type> iterator() {
-        return new Iterator<>() {
-            private int index = 0;
-
-            @Override
-            public boolean hasNext() {
-                return count > index;
-            }
-
-            @Override
-            public Type next() {
-                return stack[index++];
-            }
-        };
     }
 }
