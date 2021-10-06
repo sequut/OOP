@@ -52,8 +52,7 @@ public class Stack<Type>{
             count -= 1;
         }
         catch (IndexOutOfBoundsException e){
-            count = 0;
-            System.err.println(e.getMessage());
+            throw new IndexOutOfBoundsException("stack empty");
         }
     }
 
@@ -67,8 +66,7 @@ public class Stack<Type>{
             count -= number;
         }
         catch (IndexOutOfBoundsException e){
-            count = 0;
-            System.err.println(e.getMessage());
+            throw new IndexOutOfBoundsException("there are not so many elements on the stack");
         }
     }
 

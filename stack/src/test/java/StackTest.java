@@ -33,11 +33,21 @@ public class StackTest {
         test.pop();
         assertEquals(0, test.count());
 
-        test.pop();
+        Throwable thrown = assertThrows(IndexOutOfBoundsException.class, test::pop);
+        assertEquals(thrown.getMessage(), "stack empty");
+
         assertEquals(0, test.count());
 
-        test.popStack(2);
-        assertEquals(0, test.count());
+        Throwable thrown_1 = assertThrows(IndexOutOfBoundsException.class, () -> test.popStack(2));
+        assertEquals(thrown_1.getMessage(), "there are not so many elements on the stack");
+
+        test.push(12);
+        assertEquals(1, test.count());
+
+        Throwable thrown_2 = assertThrows(IndexOutOfBoundsException.class, () -> test.popStack(2));
+        assertEquals(thrown_2.getMessage(), "there are not so many elements on the stack");
+
+        assertEquals(1, test.count());
     }
 
     @Test
@@ -67,10 +77,20 @@ public class StackTest {
         test.pop();
         assertEquals(0, test.count());
 
-        test.pop();
+        Throwable thrown = assertThrows(IndexOutOfBoundsException.class, test::pop);
+        assertEquals(thrown.getMessage(), "stack empty");
+
         assertEquals(0, test.count());
 
-        test.popStack(2);
-        assertEquals(0, test.count());
+        Throwable thrown_1 = assertThrows(IndexOutOfBoundsException.class, () -> test.popStack(2));
+        assertEquals(thrown_1.getMessage(), "there are not so many elements on the stack");
+
+        test.push("testing");
+        assertEquals(1, test.count());
+
+        Throwable thrown_2 = assertThrows(IndexOutOfBoundsException.class, () -> test.popStack(2));
+        assertEquals(thrown_2.getMessage(), "there are not so many elements on the stack");
+
+        assertEquals(1, test.count());
     }
 }
