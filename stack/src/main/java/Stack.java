@@ -11,14 +11,14 @@ public class Stack<Type>{
 
     /**
      * returns number of elements in stack
-     * @return - returns how how many elements in stack right now
+     * @return - returns how many elements in stack right now
      */
     public int count(){
         return count;
     }
 
     /**
-     * push one element type Type to stack
+     * push one element type "Type" to stack
      * @param aa - item
      */
     public void push(Type aa){
@@ -30,7 +30,7 @@ public class Stack<Type>{
     }
 
     /**
-     * push array of elements type Type to stack
+     * push array of elements type "Type" to stack
      * @param aa - array with items
      */
     public void pushStack(Type[] aa){
