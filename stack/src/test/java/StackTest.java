@@ -2,6 +2,9 @@ import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.TestInstance;
 
+import java.lang.reflect.Type;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class StackTest {
@@ -22,19 +25,22 @@ public class StackTest {
 
         test.write();
 
-        test.pop();
-        assertEquals(4, test.count());
+        Integer ret;
+        ret  = (Integer) test.pop();
+        assertEquals(100, ret);
 
-        test.popStack(3);
-        assertEquals(1, test.count());
+        Integer[] testing;
+
+        testing = (Integer[]) test.popStack(1);
+        assertEquals(99, testing[0]);
 
         test.write();
 
-        test.pop();
-        assertEquals(0, test.count());
+        ret  = (Integer) test.pop();
+        assertEquals(1, ret);
 
         Throwable thrown = assertThrows(IndexOutOfBoundsException.class, test::pop);
-        assertEquals(thrown.getMessage(), "stack empty");
+        assertEquals(thrown.getMessage(), "stack is empty");
 
         assertEquals(0, test.count());
 
@@ -66,19 +72,20 @@ public class StackTest {
 
         test.write();
 
-        test.pop();
-        assertEquals(4, test.count());
+        String ret;
+        ret  = (String) test.pop();
+        assertEquals("ee", ret);
 
         test.popStack(3);
         assertEquals(1, test.count());
 
         test.write();
 
-        test.pop();
-        assertEquals(0, test.count());
+        ret  = (String) test.pop();
+        assertEquals("aa", ret);
 
         Throwable thrown = assertThrows(IndexOutOfBoundsException.class, test::pop);
-        assertEquals(thrown.getMessage(), "stack empty");
+        assertEquals(thrown.getMessage(), "stack is empty");
 
         assertEquals(0, test.count());
 

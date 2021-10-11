@@ -45,7 +45,7 @@ public class Stack<Type>{
     /**
      * delete one element from stack
      */
-    public void pop(){
+    public Type pop(){
         try {
             stack[count - 1] = stack[count - 1];
             count -= 1;
@@ -53,21 +53,49 @@ public class Stack<Type>{
         catch (IndexOutOfBoundsException e){
             throw new IndexOutOfBoundsException("stack is empty");
         }
+        return stack[count];
     }
 
     /**
      * delete items from stack
      * @param number - how many items we should delete
      */
-    public void popStack(int number){
+    public Type[] popStack(int number){
+        @SuppressWarnings("unchecked")
+        Type[] answ = (Type[]) new Object[0];
+        answ = Arrays.copyOf(answ, number);
         try {
             stack[count - number] = stack[count - number];
-            count -= number;
         }
         catch (IndexOutOfBoundsException e){
             throw new IndexOutOfBoundsException("there are not so many elements on the stack");
         }
+
+        for (int i = 0; i < number; i++){
+            stack[count - 1] = stack[count - 1];
+            count -= 1;
+            answ[i] = stack[count];
+        }
+        return answ;
     }
+
+/*    public stack popStack(int n) throws Exception {
+        if (head < 0) {
+            Exception e;
+            throw e = new IndexOutOfBoundsException("Stack is empty");
+        }
+        int a = head - n;
+        if (a < 0) a = -1;
+        stack<T> ret = new stack();
+        ret.arr = Arrays.copyOfRange(arr, a + 1, head + 1);
+        ret.head = n - 1;
+        ret.len = n;
+        head = a;
+        return ret;
+    }
+
+ */
+
 
     /**
      * write current stack
