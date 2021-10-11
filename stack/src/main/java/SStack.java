@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Stack<Type>{
+public class SStack<Type>{
 
     private int count = 0;
     private int max_len = 0;
@@ -32,13 +32,13 @@ public class Stack<Type>{
      * push array of elements type "Type" to stack
      * @param aa - array with items
      */
-    public void pushStack(Type[] aa){
-        for (Type type : aa) {
+    public void pushStack(SStack<Type> aa){
+        for (int i = 0; i < aa.count; i++) {
             if (count == max_len) {
                 max_len = max_len * 2 + 1;
                 stack = Arrays.copyOf(stack, max_len);
             }
-            stack[count++] = type;
+            stack[count++] = aa.stack[i];
         }
     }
 
@@ -60,10 +60,9 @@ public class Stack<Type>{
      * delete items from stack
      * @param number - how many items we should delete
      */
-    public Type[] popStack(int number){
-        @SuppressWarnings("unchecked")
-        Type[] answ = (Type[]) new Object[0];
-        answ = Arrays.copyOf(answ, number);
+    public SStack<Type> popStack(int number){
+
+        SStack<Type> answ = new SStack<>();
         try {
             stack[count - number] = stack[count - number];
         }
@@ -74,28 +73,10 @@ public class Stack<Type>{
         for (int i = 0; i < number; i++){
             stack[count - 1] = stack[count - 1];
             count -= 1;
-            answ[i] = stack[count];
+            answ.push(stack[count]);
         }
         return answ;
     }
-
-/*    public stack popStack(int n) throws Exception {
-        if (head < 0) {
-            Exception e;
-            throw e = new IndexOutOfBoundsException("Stack is empty");
-        }
-        int a = head - n;
-        if (a < 0) a = -1;
-        stack<T> ret = new stack();
-        ret.arr = Arrays.copyOfRange(arr, a + 1, head + 1);
-        ret.head = n - 1;
-        ret.len = n;
-        head = a;
-        return ret;
-    }
-
- */
-
 
     /**
      * write current stack
