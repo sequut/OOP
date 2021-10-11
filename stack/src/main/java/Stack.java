@@ -52,7 +52,7 @@ public class Stack<Type>{
             count -= 1;
         }
         catch (IndexOutOfBoundsException e){
-            throw new IndexOutOfBoundsException("stack empty");
+            throw new IndexOutOfBoundsException("stack is empty");
         }
     }
 
