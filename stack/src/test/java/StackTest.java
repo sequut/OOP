@@ -34,7 +34,7 @@ public class StackTest {
         assertEquals(3, testing.count());
 
         ret = testing.pop();
-        assertEquals(345, ret);
+        assertEquals(99, ret);
 
         test.write();
 
@@ -86,7 +86,7 @@ public class StackTest {
         assertEquals(3, testing.count());
 
         ret = testing.pop();
-        assertEquals("bb", ret);
+        assertEquals("dd", ret);
 
         test.write();
 

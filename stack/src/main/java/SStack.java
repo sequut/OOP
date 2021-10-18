@@ -36,13 +36,10 @@ public class SStack<Type>{
 
         int rem = aa.count();
 
-        for (int i = 0; i < aa.count(); i++) {
-            if (count == max_len) {
-                max_len = max_len * 2 + 1;
-                stack = Arrays.copyOf(stack, max_len);
-            }
-            count += 1;
-        }
+        max_len += rem*2;
+        count += rem;
+        stack = Arrays.copyOf(stack, max_len);
+
         Type help;
         for (int i = 0; i < rem; i++){
             help = aa.pop();
@@ -75,9 +72,14 @@ public class SStack<Type>{
         else if (count - number < 0)
             throw new IndexOutOfBoundsException("there are not so many elements on the stack");
         else{
+
+            answ.max_len += number;
+            answ.count += number;
+            answ.stack = Arrays.copyOf(answ.stack, answ.max_len);
+
             for (int i = 0; i < number; i++){
                 count -= 1;
-                answ.push(stack[count]);
+                answ.stack[number - i - 1] = stack[count];
             }
         }
         return answ;
