@@ -33,12 +33,20 @@ public class SStack<Type>{
      * @param aa - array with items
      */
     public void pushStack(SStack<Type> aa){
-        for (int i = 0; i < aa.count; i++) {
+
+        int rem = aa.count();
+
+        for (int i = 0; i < aa.count(); i++) {
             if (count == max_len) {
                 max_len = max_len * 2 + 1;
                 stack = Arrays.copyOf(stack, max_len);
             }
-            stack[count++] = aa.stack[i];
+            count += 1;
+        }
+        Type help;
+        for (int i = 0; i < rem; i++){
+            help = aa.pop();
+            stack[count - i - 1] = help;
         }
     }
 
@@ -46,14 +54,12 @@ public class SStack<Type>{
      * delete one element from stack
      */
     public Type pop(){
-        try {
-            stack[count - 1] = stack[count - 1];
-            count -= 1;
-        }
-        catch (IndexOutOfBoundsException e){
+        if (count == 0)
             throw new IndexOutOfBoundsException("stack is empty");
+        else{
+            count -= 1;
+            return stack[count];
         }
-        return stack[count];
     }
 
     /**
@@ -63,17 +69,16 @@ public class SStack<Type>{
     public SStack<Type> popStack(int number){
 
         SStack<Type> answ = new SStack<>();
-        try {
-            stack[count - number] = stack[count - number];
-        }
-        catch (IndexOutOfBoundsException e){
-            throw new IndexOutOfBoundsException("there are not so many elements on the stack");
-        }
 
-        for (int i = 0; i < number; i++){
-            stack[count - 1] = stack[count - 1];
-            count -= 1;
-            answ.push(stack[count]);
+        if (count == 0 && number != 0)
+            throw new IndexOutOfBoundsException("stack is empty");
+        else if (count - number < 0)
+            throw new IndexOutOfBoundsException("there are not so many elements on the stack");
+        else{
+            for (int i = 0; i < number; i++){
+                count -= 1;
+                answ.push(stack[count]);
+            }
         }
         return answ;
     }
