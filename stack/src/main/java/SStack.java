@@ -72,15 +72,9 @@ public class SStack<Type>{
         else if (count - number < 0)
             throw new IndexOutOfBoundsException("there are not so many elements on the stack");
         else{
-
-            answ.max_len += number;
-            answ.count += number;
-            answ.stack = Arrays.copyOf(answ.stack, answ.max_len);
-
-            for (int i = 0; i < number; i++){
-                count -= 1;
-                answ.stack[number - i - 1] = stack[count];
-            }
+            for (int i = 0; i < number; i++)
+                answ.push(stack[count - number + i]);
+            count -= number;
         }
         return answ;
     }
