@@ -25,7 +25,8 @@ public class SStack<Type>{
             max_len = max_len * 2 + 1;
             stack = Arrays.copyOf(stack, max_len);
         }
-        stack[count++] = aa;
+        stack[count] = aa;
+        count += 1;
     }
 
     /**
@@ -35,16 +36,12 @@ public class SStack<Type>{
     public void pushStack(SStack<Type> aa){
 
         int rem = aa.count();
-
         max_len += rem*2;
         count += rem;
         stack = Arrays.copyOf(stack, max_len);
 
-        Type help;
-        for (int i = 0; i < rem; i++){
-            help = aa.pop();
-            stack[count - i - 1] = help;
-        }
+        for (int i = 0; i < rem; i++)
+            stack[count - i - 1] = aa.pop();
     }
 
     /**
@@ -64,13 +61,13 @@ public class SStack<Type>{
      * @param number - how many items we should delete
      */
     public SStack<Type> popStack(int number){
-
         SStack<Type> answ = new SStack<>();
-
-        if (count == 0 && number != 0)
-            throw new IndexOutOfBoundsException("stack is empty");
-        else if (count - number < 0)
-            throw new IndexOutOfBoundsException("there are not so many elements on the stack");
+        if (count - number < 0){
+            if (count == 0)
+                throw new IndexOutOfBoundsException("stack is empty");
+            else
+                throw new IndexOutOfBoundsException("there are not so many elements on the stack");
+        }
         else{
             for (int i = 0; i < number; i++)
                 answ.push(stack[count - number + i]);
