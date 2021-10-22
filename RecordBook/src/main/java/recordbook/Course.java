@@ -13,12 +13,15 @@ public class Course {
         this.mark = Mark.transformMark(mark);
     }
 
+    public boolean hasMark(){
+        return (mark != null && mark != Mark.UNDEFINED);
+    }
+
     public Mark getMark(){
-        if (mark != null && mark != Mark.UNDEFINED) {
+        if (hasMark())
             return mark;
-        } else {
+        else
             throw new RuntimeException("There is no mark");
-        }
     }
 
     public void setMark(int mark) throws Exception {
