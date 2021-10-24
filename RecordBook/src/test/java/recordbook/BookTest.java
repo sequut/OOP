@@ -39,7 +39,6 @@ public class BookTest {
 
     @Test
     public void testNumSemesters() throws Exception {
-
         assertEquals(2, book.getSemesters().length);
 
         Semester third = new Semester();
