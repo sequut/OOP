@@ -44,9 +44,16 @@ public class BookTest {
 
         Semester third = new Semester();
         third.addCourse(new Course("Английский язык", 5));
-
         book.addSemester(third);
 
         assertEquals(3, book.getSemesters().length);
+    }
+
+    @Test
+    public void testIncreasedStipend(){
+        Semester[] semesters = book.getSemesters();
+
+        assertFalse(semesters[1].appliesIncreaseStipend());
+        assertTrue(semesters[0].appliesIncreaseStipend());
     }
 }
