@@ -43,7 +43,6 @@ public class BookTest {
         assertEquals(2, book.getSemesters().length);
 
         Semester third = new Semester();
-        third.addCourse(new Course("Делкаративное программирование", 5));
         third.addCourse(new Course("Английский язык", 5));
 
         book.addSemester(third);
