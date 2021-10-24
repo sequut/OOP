@@ -1,7 +1,7 @@
 package recordbook;
 
 public enum Mark {
-    UNDEFINED, POOR, SATISFACTORY, GOOD, EXC;
+    UNDEFINED, FAIL_, FAIL, SATISFACTORY, GOOD, EXC;
 
     public static Mark transformMark(int mark) throws Exception {
         if (mark < 1 || mark > 5)

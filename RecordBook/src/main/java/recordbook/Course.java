@@ -3,12 +3,12 @@ public class Course {
     private String name;
     private Mark mark;
 
-    public void addCourse(String course){
+    public Course(String course){
         this.name = course;
         this.mark = Mark.UNDEFINED;
     }
 
-    public void addCourse(String course, int mark) throws Exception {
+    public Course(String course, int mark) throws Exception {
         this.name = course;
         this.mark = Mark.transformMark(mark);
     }
