@@ -13,6 +13,10 @@ public class Course {
         this.mark = Mark.transformMark(mark);
     }
 
+    public String getName(){
+        return name;
+    }
+
     public boolean hasMark(){
         return (mark != null && mark != Mark.UNDEFINED);
     }

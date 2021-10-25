@@ -1,5 +1,6 @@
 package recordbook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Book {
@@ -12,12 +13,20 @@ public class Book {
         this.semesters = semesters;
     }
 
+    public Book(int student_id) {
+        this.student_id = student_id;
+    }
+
     public int getID(){
         return student_id;
     }
 
     public Semester[] getSemesters(){
         return semesters;
+    }
+
+    public Semester getSemester(int number){
+        return semesters[number];
     }
 
     public void addSemester(Semester semester){
@@ -57,7 +66,16 @@ public class Book {
         this.graduationWork = mark;
     }
 
-    public double excMarkPercent(){
+    public ArrayList<Course> getCoursesByName(String name){
+        ArrayList<Course> courses = new ArrayList<>();
+        for (Semester sem1 : semesters)
+            for (Course course1 : sem1.getCourses())
+                if (course1.getName().equals(name))
+                    courses.add(course1);
+        return courses;
+    }
+
+    public double excMarkPercent(){ //сделать только для последних оценок
         int count = 0;
         int total = 0;
 

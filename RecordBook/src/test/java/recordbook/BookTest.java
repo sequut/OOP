@@ -47,13 +47,11 @@ public class BookTest {
     public void testIncreasedStipend_testAverage() throws Exception {
         assertEquals(4.833333333333333, book.allTimeAverageMark());
 
-        Semester[] semesters = book.getSemesters();
-        assertFalse(semesters[1].appliesIncreaseStipend());
+        assertFalse(book.getSemester(1).appliesIncreaseStipend());
 
-        semesters[1].getCourses().get(1).setMark(5);
+        book.getSemester(1).getCourses().get(1).setMark(5);
 
-        assertTrue(semesters[1].appliesIncreaseStipend());
+        assertTrue(book.getSemester(1).appliesIncreaseStipend());
         assertEquals(5, book.allTimeAverageMark());
-        assertTrue(semesters[0].appliesIncreaseStipend());
     }
 }
