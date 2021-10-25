@@ -24,11 +24,6 @@ public class BookTest {
     }
 
     @Test
-    public void testAverage() {
-        assertEquals(4.8, book.allTimeAverageMark());
-    }
-
-    @Test
     public void testRedDiploma() {
         book.setGraduationWork(Mark.GOOD);
         assertFalse(book.getRedDiploma());
@@ -49,10 +44,16 @@ public class BookTest {
     }
 
     @Test
-    public void testIncreasedStipend(){
-        Semester[] semesters = book.getSemesters();
+    public void testIncreasedStipend_testAverage() throws Exception {
+        assertEquals(4.833333333333333, book.allTimeAverageMark());
 
+        Semester[] semesters = book.getSemesters();
         assertFalse(semesters[1].appliesIncreaseStipend());
+
+        semesters[1].getCourses().get(1).setMark(5);
+
+        assertTrue(semesters[1].appliesIncreaseStipend());
+        assertEquals(5, book.allTimeAverageMark());
         assertTrue(semesters[0].appliesIncreaseStipend());
     }
 }
