@@ -49,4 +49,11 @@ public class Course {
     public void setMark(int mark) throws Exception {
         this.mark = Mark.transformMark(mark);
     }
+
+    /*
+    change or name for course
+    */
+    public void setName(String name) {
+        this.name = name;
+    }
 }

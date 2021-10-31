@@ -111,22 +111,39 @@ public class Book {
     /*
     get a percentage of courses with excellent marks
      */
-    public double excMarkPercent(){ //сделать только для последних оценок
+    public double excMarkPercent(){
         int count = 0;
         int total = 0;
 
-        for (Semester sem1 : semesters){
-            if (sem1 == null)
+
+        Semester sem_help = new Semester();
+        for (Semester semester : semesters){
+            Course[] aa = semester.getCourses().toArray(new Course[0]);
+            for (Course help : aa)
+                sem_help.addCourse(help);
+        }
+
+        Course[] courses = sem_help.getCourses().toArray(new Course[0]);
+        for (int i = courses.length - 1; i > 0; i--){
+            String current = courses[i].getName();
+            if (current.equals("CHECKED"))
                 continue;
-
-            int semexc = sem1.excellentCourses();
-            int semtotal = sem1.coursesWithMark();
-
-            if (semtotal > 0) {
-                count += semexc;
-                total += semtotal;
+            for (int j = i; j > 0; j--){
+                if (j == i)
+                    continue;
+                if (courses[j].getName().equals(current))
+                    courses[j].setName("CHECKED");
             }
         }
+
+        for (Course course : courses){
+            if (course.getName().equals("CHECKED"))
+                continue;
+            total += 1;
+            if (course.getMark() == Mark.EXC)
+                count += 1;
+        }
+
         return (double) count / total;
     }
 
