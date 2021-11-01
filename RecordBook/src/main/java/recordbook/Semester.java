@@ -20,6 +20,16 @@ public class Semester {
     }
 
     /*
+    get course by name
+     */
+    public Course getCourseByName(String name) throws Exception {
+        for (Course course1 : courses)
+            if (course1.getName().equals(name))
+                return course1;
+        throw new Exception("No such course");
+    }
+
+    /*
     counting courses with mark
      */
     public int coursesWithMark(){

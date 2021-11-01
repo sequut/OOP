@@ -128,9 +128,7 @@ public class Book {
             String current = courses[i].getName();
             if (current.equals("CHECKED"))
                 continue;
-            for (int j = i; j > 0; j--){
-                if (j == i)
-                    continue;
+            for (int j = i - 1; j > 0; j--){
                 if (courses[j].getName().equals(current))
                     courses[j].setName("CHECKED");
             }
