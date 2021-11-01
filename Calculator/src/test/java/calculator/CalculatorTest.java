@@ -43,7 +43,5 @@ public class CalculatorTest {
         Throwable thrown_2 = assertThrows(RuntimeException.class,
                 () -> Calculator.calculate("+ 9 * 2 3 ^"));
         assertEquals(thrown_2.getMessage(), "Invalid token: ^");
-
-        Calculator.main(test);
     }
 }

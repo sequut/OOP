@@ -28,9 +28,4 @@ public class Calculator {
         }
         return que.pop();
     }
-
-    public static void main(String[] str){
-        for (String name : str)
-            System.out.println(name + " = " + calculate(name));
-    }
 }
