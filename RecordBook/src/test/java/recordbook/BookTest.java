@@ -49,7 +49,13 @@ public class BookTest {
 
         assertFalse(book.getSemester(1).appliesIncreaseStipend());
 
-        book.getSemester(1).getCourses().get(1).setMark(5);
+        book.getSemester(1).getCourseByName("Английский язык").setMark(5);
+
+        Throwable thrown_1 = assertThrows(Exception.class, () -> book.getSemester(1).getCourseByName("язык").setMark(5));
+        assertEquals(thrown_1.getMessage(), "No such course");
+
+        Throwable thrown_2 = assertThrows(Exception.class, () -> book.getSemester(50).getCourseByName("язык").setMark(5));
+        assertEquals(thrown_2.getMessage(), "No such semester");
 
         assertTrue(book.getSemester(1).appliesIncreaseStipend());
         assertEquals(5, book.allTimeAverageMark());

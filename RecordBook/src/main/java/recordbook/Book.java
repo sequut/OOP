@@ -41,7 +41,12 @@ public class Book {
     get current semester
      */
     public Semester getSemester(int number){
-        return semesters[number];
+        try {
+            return semesters[number];
+        }
+        catch (IndexOutOfBoundsException e){
+            throw new IndexOutOfBoundsException("No such semester");
+        }
     }
 
     /*
