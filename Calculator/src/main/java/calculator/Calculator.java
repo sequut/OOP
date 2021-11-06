@@ -1,5 +1,6 @@
 package calculator;
 
+import java.util.Scanner;
 import java.util.Stack;
 
 public class Calculator {
@@ -9,6 +10,9 @@ public class Calculator {
 
         for (int i = words.length - 1; i >= 0; i--){
             try {
+                if (words[i].startsWith("rad")){
+
+                }
                 que.push(Double.parseDouble(words[i]));
             }
             catch (NumberFormatException e){
@@ -19,7 +23,9 @@ public class Calculator {
                     case "*" -> que.push(que.pop() * que.pop());
                     case "log" -> que.push(Math.log(que.pop()));
                     case "sin" -> que.push(Math.sin(que.pop()));
+                    case "asin" -> que.push(Math.asin(que.pop()));
                     case "cos" -> que.push(Math.cos(que.pop()));
+                    case "acos" -> que.push(Math.acos(que.pop()));
                     case "pow" -> que.push(Math.pow(que.pop(), que.pop()));
                     case "sqrt" -> que.push(Math.sqrt(que.pop()));
                     default -> throw new RuntimeException("Invalid token: " + words[i]);
