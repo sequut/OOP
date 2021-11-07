@@ -30,7 +30,6 @@ public class Calculator {
         return que.pop();
     }
 
-
     public static String calculateInComplex(String str) throws Exception {
         String[] words = str.split(" ");
 
@@ -81,7 +80,6 @@ public class Calculator {
             case '/' -> c1.divide(c2);
             default -> throw new RuntimeException("Invalid token: " + operation.get(0));
         }
-
         return c1.makeString();
     }
 }
