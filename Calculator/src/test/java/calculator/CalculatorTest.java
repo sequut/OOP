@@ -3,6 +3,7 @@ package calculator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.text.CompactNumberFormat;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,5 +44,58 @@ public class CalculatorTest {
         Throwable thrown_2 = assertThrows(RuntimeException.class,
                 () -> Calculator.calculateInReal("+ 9 * 2 3 ^"));
         assertEquals(thrown_2.getMessage(), "Invalid token: ^");
+    }
+
+    @Test
+    public void TestComplex(){
+        Complex c1 = new Complex(12, -5);
+        Complex c2 = new Complex(12, 5);
+        Complex c3 = new Complex(0, -5);
+        Complex c4 = new Complex(12);
+
+        Complex help1 = c1.getComplex();
+        Complex help2;
+
+        Complex answ1 = new Complex(0.7041420118343196, -0.7100591715976331);
+        Complex answ2 = new Complex();
+        Complex answ3 = new Complex(119, -120);
+        Complex answ4 = new Complex(24);
+        Complex answ5 = new Complex();
+        Complex answ6 = new Complex(12, 5);
+        Complex answ7 = new Complex();
+        Complex answ8 = new Complex(-25);
+
+
+        help1.divide(c2);
+        assertEquals(answ1.makeString(), help1.makeString());
+
+        help1 = c1.getComplex();
+        help1.sub(help1);
+        assertEquals(answ2.makeString(), help1.makeString());
+
+        help1 = c1.getComplex();
+        help1.multiply(help1);
+        assertEquals(answ3.makeString(), help1.makeString());
+
+        help1 = c1.getComplex();
+        help1.add(c2);
+        assertEquals(answ4.makeString(), help1.makeString());
+
+        help1 = c3.getComplex();
+        help1.add(help1.getConjugate());
+        assertEquals(answ5.makeString(), help1.makeString());
+
+        help1 = c4.getComplex();
+        help2 = c3.getComplex();
+        help1.sub(help2);
+        assertEquals(answ6.makeString(), help1.makeString());
+
+        help1 = c4.getComplex();
+        help1.sub(help1);
+        assertEquals(answ7.makeString(), help1.makeString());
+
+        help1 = c3.getComplex();
+        help1.multiply(help1);
+        assertEquals(answ8.makeString(), help1.makeString());
     }
 }

@@ -57,10 +57,17 @@ public class Complex {
         Im -= c.getIm();
     }
     public void divide(Complex c){
-        this.multiply(c);
         double len = c.getLen();
-        this.Im /= len;
-        this.Re /= len;
+        len *= len;
+
+        Complex conjugate = c.getConjugate();
+        Complex current = this.getComplex();
+        current.multiply(conjugate);
+
+        current.Re /= len;
+        current.Im /= len;
+        Re = current.getRe();
+        Im = current.Im;
     }
     public void multiply(Complex c){
         double help = Re * c.getRe() - Im * c.getIm();
@@ -68,7 +75,7 @@ public class Complex {
         Re = help;
     }
     public Complex getConjugate(){
-        return new Complex(Re, (-1)*Im);
+        return new Complex(Re, -Im);
     }
     public boolean isReal(){
         return Math.abs(Im) < EPS;
@@ -77,10 +84,16 @@ public class Complex {
         return ((Math.abs(Im - c.getIm()) < EPS) && (Math.abs(Re - c.getRe()) < EPS));
     }
     public void printComplex(){
-        System.out.println(Re + (Im > 0.0 ? "+" : "") + Im);
+        if (this.isReal())
+            System.out.println(Re);
+        else
+            System.out.println(Re + (Im > 0.0 ? "+" : "") + Im + "i");
     }
 
     public String makeString() {
-        return  Re + (Im > 0.0 ? "+" : "") + Im;
+        if (this.isReal())
+            return Re + "";
+        else
+            return  Re + (Im > 0.0 ? "+" : "") + Im + "i";
     }
 }

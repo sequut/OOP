@@ -44,9 +44,9 @@ public class Calculator {
                 double Im;
                 try{
                     if (words[i].charAt(0) == '+')
-                        Im = Double.parseDouble(words[i].substring(1, words[i].length() - 2));
+                        Im = Double.parseDouble(words[i].substring(1, words[i].length() - 1));
                     else
-                        Im = Double.parseDouble(words[i].substring(0, words[i].length() - 2));
+                        Im = Double.parseDouble(words[i].substring(0, words[i].length() - 1));
                 }
                 catch (NumberFormatException e) {
                     throw new Exception("Invalid format");
@@ -55,7 +55,8 @@ public class Calculator {
                     c2.setIm(Im);
                 else
                     c1.setIm(Im);
-            } else {
+            }
+            else {
                 try {
                     double Re;
                     Re = Double.parseDouble(words[i]);
@@ -73,6 +74,7 @@ public class Calculator {
                 }
             }
         }
+
         switch (operation.get(0)){
             case '+' -> c1.add(c2);
             case '-' -> c1.sub(c2);
