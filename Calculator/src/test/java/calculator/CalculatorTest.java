@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CalculatorTest {
 
     @Test
-    public void testall(){
+    public void TestAll(){
         String[] test = new String[0];
         test = Arrays.copyOf(test, 9);
         test[0] = "+ 9 * 2 6";
@@ -25,23 +25,23 @@ public class CalculatorTest {
 
         test[8] = "pow sqrt pow 2 2 3";
 
-        assertEquals(21, Calculator.calculate(test[0]));
-        assertEquals(0, Calculator.calculate(test[1]));
-        assertEquals(1, Calculator.calculate(test[2]));
-        assertEquals(0, Calculator.calculate(test[3]));
-        assertEquals(1.5, Calculator.calculate(test[4]));
-        assertEquals((double) 1/3, Calculator.calculate(test[5]));
-        assertEquals(16, Calculator.calculate(test[6]));
-        assertEquals(12, Calculator.calculate(test[7]));
-        assertEquals(8, Calculator.calculate(test[8]));
+        assertEquals(21, Calculator.calculateInReal(test[0]));
+        assertEquals(0, Calculator.calculateInReal(test[1]));
+        assertEquals(1, Calculator.calculateInReal(test[2]));
+        assertEquals(0, Calculator.calculateInReal(test[3]));
+        assertEquals(1.5, Calculator.calculateInReal(test[4]));
+        assertEquals((double) 1/3, Calculator.calculateInReal(test[5]));
+        assertEquals(16, Calculator.calculateInReal(test[6]));
+        assertEquals(12, Calculator.calculateInReal(test[7]));
+        assertEquals(8, Calculator.calculateInReal(test[8]));
 
         String[] finalTest = test;
         Throwable thrown_1 = assertThrows(RuntimeException.class,
-                () -> Calculator.calculate("+ 9 * 2 a"));
+                () -> Calculator.calculateInReal("+ 9 * 2 a"));
         assertEquals(thrown_1.getMessage(), "Invalid token: a");
 
         Throwable thrown_2 = assertThrows(RuntimeException.class,
-                () -> Calculator.calculate("+ 9 * 2 3 ^"));
+                () -> Calculator.calculateInReal("+ 9 * 2 3 ^"));
         assertEquals(thrown_2.getMessage(), "Invalid token: ^");
     }
 }
