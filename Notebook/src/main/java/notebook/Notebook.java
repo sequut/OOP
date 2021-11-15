@@ -2,8 +2,10 @@ package notebook;
 
 import com.google.gson.Gson;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.Date;
 
 public class Notebook {
     private final static Gson gson = new Gson();
@@ -44,41 +46,64 @@ public class Notebook {
     }
 
     private static void show(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         List<Note> notes = take();
         for (Note note : notes){
+            System.out.println(dateFormat.format(note.getTime()));
             System.out.println(note.getTitle());
-            System.out.println(note.getTime());
             System.out.println(note.getNote());
             System.out.println();
         }
     }
 
     private static void show(Date startTime, Date endTime){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         List<Note> notes = take();
         Note[] rightNotes = (Note[]) notes.stream().filter(note ->
                 note.getTime().after(startTime) && note.getTime().before(endTime)).toArray();
 
         for (Note note : rightNotes){
+            System.out.println(dateFormat.format(note.getTime()));
             System.out.println(note.getTitle());
-            System.out.println(note.getTime());
             System.out.println(note.getNote());
             System.out.println();
         }
     }
 
-
-
-
-    public static void Main(String[] args){
+    public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         String action;
 
         while (input.hasNextLine()){
             try{
+                //SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ROOT);
+
                 action = input.nextLine();
                 if (action.equals("exit"))
                     break;
 
+                String[] words = action.split(" ");
+                if (words[0].equals("notebook")){
+                    switch (words[1]){
+                        case "-add":
+                            add(new Note(words[2], words[3], new Date()));
+                            break;
+                        case "-rm":
+                            remove(words[2]);
+                            break;
+                        case "-show":
+                            if (words.length == 2)
+                                show();
+                            else
+                                show(formatter.parse(words[2]), formatter.parse(words[3]));
+                            break;
+                        default:
+                            System.err.println("no such command");
+                    }
+                }
+                else
+                    System.err.println("Wrong format");
             }
             catch (Exception e){
                 System.err.println(e.getMessage());
