@@ -76,8 +76,7 @@ public class Notebook {
 
         while (input.hasNextLine()){
             try{
-                //SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ROOT);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
                 action = input.nextLine();
                 if (action.equals("exit"))
