@@ -8,10 +8,18 @@ import java.util.*;
 import java.util.Date;
 
 public class Notebook {
+    private final String filename;
     private final static Gson gson = new Gson();
-    private final static String filename = "notes.json";
 
-    private static List<Note> take(){
+    public Notebook(){
+        this.filename = "notes.json";
+    }
+
+    public Notebook(String name) {
+        this.filename = name;
+    }
+
+    public List<Note> take(){
         try (Reader reader = new FileReader(filename)){
             Note[] notes = gson.fromJson(reader, Note[].class);
             return new ArrayList<>(Arrays.asList(notes));
@@ -21,7 +29,7 @@ public class Notebook {
         }
     }
 
-    private static void write(List<Note> notes){
+    public void write(List<Note> notes){
         try (Writer writer = new FileWriter(filename)){
             gson.toJson(notes, writer);
         }
@@ -30,13 +38,13 @@ public class Notebook {
         }
     }
 
-    private static void add(Note note){
+    public void add(Note note){
         List<Note> notes = take();
         notes.add(note);
         write(notes);
     }
 
-    private static void remove(String title){
+    public void remove(String title){
         List<Note> notes = take();
 
         if (notes.removeIf(note -> note.getTitle().equals(title)))
@@ -45,7 +53,7 @@ public class Notebook {
             System.err.println("Failed to delete note");
     }
 
-    private static void show(){
+    public void show(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         List<Note> notes = take();
         for (Note note : notes){
@@ -56,58 +64,34 @@ public class Notebook {
         }
     }
 
-    private static void show(Date startTime, Date endTime){
+    public void show(Date startTime, Date endTime, String[] words){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         List<Note> notes = take();
         Note[] rightNotes = (Note[]) notes.stream().filter(note ->
                 note.getTime().after(startTime) && note.getTime().before(endTime)).toArray();
 
-        for (Note note : rightNotes){
-            System.out.println(dateFormat.format(note.getTime()));
-            System.out.println(note.getTitle());
-            System.out.println(note.getNote());
-            System.out.println();
+        int flag = 1;
+        for (Note note: rightNotes) {
+            for (String word: words) {
+                if (!note.getTitle().contains(word)){
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag == 1){
+                System.out.println(dateFormat.format(note.getTime()));
+                System.out.println(note.getTitle());
+                System.out.println(note.getNote());
+                System.out.println();
+            }
         }
     }
 
-    public static void main(String[] args){
-        Scanner input = new Scanner(System.in);
-        String action;
-
-        while (input.hasNextLine()){
-            try{
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
-                action = input.nextLine();
-                if (action.equals("exit"))
-                    break;
-
-                String[] words = action.split(" ");
-                if (words[0].equals("notebook")){
-                    switch (words[1]){
-                        case "-add":
-                            add(new Note(words[2], words[3], new Date()));
-                            break;
-                        case "-rm":
-                            remove(words[2]);
-                            break;
-                        case "-show":
-                            if (words.length == 2)
-                                show();
-                            else
-                                show(formatter.parse(words[2]), formatter.parse(words[3]));
-                            break;
-                        default:
-                            System.err.println("no such command");
-                    }
-                }
-                else
-                    System.err.println("Wrong format");
-            }
-            catch (Exception e){
-                System.err.println(e.getMessage());
-            }
-        }
-        input.close();
+    public void deleteNotebook(){
+        File file = new File(filename);
+        if (file.delete())
+            System.out.println("Deleted the file: " + file.getName());
+        else
+            System.out.println("Failed to delete the file.");
     }
 }
