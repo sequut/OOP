@@ -53,9 +53,8 @@ public class Notebook {
             System.err.println("Failed to delete note");
     }
 
-    public void show(){
+    public void writeNotes(Note[] notes){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        List<Note> notes = take();
         for (Note note : notes){
             System.out.println(dateFormat.format(note.getTime()));
             System.out.println(note.getTitle());
@@ -64,14 +63,20 @@ public class Notebook {
         }
     }
 
+    public void show(){
+        Note[] notes = take().toArray(new Note[0]);
+        writeNotes(notes);
+    }
+
     public void show(Date startTime, Date endTime, String[] words){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         List<Note> notes = take();
         Note[] rightNotes = (Note[]) notes.stream().filter(note ->
                 note.getTime().after(startTime) && note.getTime().before(endTime)).toArray();
 
-        int flag = 1;
+        int flag;
         for (Note note: rightNotes) {
+            flag = 1;
             for (String word: words) {
                 if (!note.getTitle().contains(word)){
                     flag = 0;
