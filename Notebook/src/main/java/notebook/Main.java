@@ -15,10 +15,6 @@ public class Main {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Notebook notebook = new Notebook(args[0] + ".json");
 
-        for (String str: args)
-            System.out.println(str);
-
-
         switch (args[1]) {
             case ("-add"): {
                 if (args.length > 3)
