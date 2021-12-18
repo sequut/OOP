@@ -1,30 +1,27 @@
 package tree;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.ArrayList;
 
-public class Node<Type> implements Iterable<Node<Type>>{
-
+public class Node <Type>{
     private Node<Type> parent;
     private Type value;
-    private List<Node<Type>> children;
+    private ArrayList<Node<Type>> children = new ArrayList<>();
 
     public Node(Type value){
         this.value = value;
-    }
-
-    public Node<Type> addChild(Type child){
-        Node<Type> nodeChild = new Node<>(child);
-        nodeChild.parent = this;
-        this.children.add(nodeChild);
-        return nodeChild;
     }
 
     public Node<Type> getParent(){
         return parent;
     }
 
-    public List<Node<Type>> getChildren(){
+    public void addChild(Type child){
+        Node<Type> nodeChild = new Node<>(child);
+        nodeChild.parent = this;
+        this.children.add(nodeChild);
+    }
+
+    public ArrayList<Node<Type>> getChildren(){
         return children;
     }
 
@@ -44,10 +41,4 @@ public class Node<Type> implements Iterable<Node<Type>>{
         return this.isRoot() ? 0 : (parent.getLevel() + 1);
     }
 
-
-    @Override
-    public Iterator<Node<Type>> iterator() {
-        NodeIterator<Type> iterable = new NodeIterator<Type>(this);
-        return iterable;
-    }
 }
