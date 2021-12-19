@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Node <Type>{
     private Node<Type> parent;
-    private Type value;
-    private ArrayList<Node<Type>> children = new ArrayList<>();
+    private final Type value;
+    private final ArrayList<Node<Type>> children = new ArrayList<>();
 
     public Node(Type value){
         this.value = value;
@@ -25,6 +25,10 @@ public class Node <Type>{
         return children;
     }
 
+    public void deleteChild(int index){
+        children.remove(index);
+    }
+
     public Type getValue(){
         return value;
     }
@@ -40,5 +44,4 @@ public class Node <Type>{
     public int getLevel(){
         return this.isRoot() ? 0 : (parent.getLevel() + 1);
     }
-
 }
