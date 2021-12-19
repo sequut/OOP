@@ -1,9 +1,8 @@
 package tree;
 
-import javax.print.attribute.standard.MediaSize;
-import java.util.ArrayList;
+import java.util.*;
 
-public class Tree<Type> {
+public class Tree<Type> implements iterator{
     private Node<Type> root;
 
     public Tree(){
@@ -108,5 +107,70 @@ public class Tree<Type> {
             if (founded == 0)
                 throw new Exception("Wrong path");
         }
+    }
+
+    @Override
+    public Iterator<Type> iterator() {
+        return DFS();
+    }
+
+    @Override
+    public Iterator<Type> DFS(){
+        return new Iterator<>() {
+            private boolean rootHere = false;
+            private final Stack<Node<Type>> stack = new Stack<>();
+
+            @Override
+            public boolean hasNext() {
+                if (!rootHere)
+                    putRoot();
+                return !stack.isEmpty();
+            }
+
+            private void putRoot() {
+                if (root != null)
+                    stack.push(root);
+                rootHere = true;
+            }
+
+            @Override
+            public Type next() {
+                Node<Type> node = stack.pop();
+                ArrayList<Node<Type>> children = node.getChildren();
+                for (Node<Type> child : children)
+                    stack.push(child);
+                return node.getValue();
+            }
+        };
+    }
+
+    @Override
+    public Iterator<Type> BFS(){
+        return new Iterator<>() {
+            private boolean rootHere = false;
+            private final Queue<Node<Type>> queue = new ArrayDeque<>();
+
+            @Override
+            public boolean hasNext() {
+                if (!rootHere)
+                    putRoot();
+                return !queue.isEmpty();
+            }
+
+            private void putRoot() {
+                if (root != null)
+                    queue.add(root);
+                rootHere = true;
+            }
+
+            @Override
+            public Type next() {
+                Node<Type> node = queue.peek();
+                assert node != null;
+                ArrayList<Node<Type>> children = node.getChildren();
+                queue.addAll(children);
+                return node.getValue();
+            }
+        };
     }
 }
