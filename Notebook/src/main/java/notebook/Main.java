@@ -15,6 +15,7 @@ public class Main {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Notebook notebook = new Notebook(args[0] + ".json");
 
+        System.out.println(args[1]);
         switch (args[1]) {
             case ("-add"): {
                 if (args.length > 3)
@@ -41,6 +42,7 @@ public class Main {
                     System.err.println("invalid input format");
             }
             default:
+                System.err.println("invalid command format");
         }
     }
 }
