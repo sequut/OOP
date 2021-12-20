@@ -3,7 +3,11 @@ import org.junit.jupiter.api.Test;
 import tree.Node;
 import tree.Tree;
 
-public class TreeTest {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
+public class TreeTest{
     @Test
     public void addTest() throws Exception{
         Tree<Integer> tree = new Tree<>();
@@ -27,10 +31,6 @@ public class TreeTest {
         Assertions.assertEquals(thrown_2.getMessage(), "Wrong path");
     }
 
-    /*
-    when you delete you should not count root
-    type your path without root
-     */
     @Test
     public void deleteTest() throws Exception{
         Tree<Integer> tree = new Tree<>();
@@ -50,5 +50,45 @@ public class TreeTest {
         Throwable thrown_2 = Assertions.assertThrows(Exception.class,
                 () -> tree.deleteWithPath(""));
         Assertions.assertEquals(thrown_2.getMessage(), "there is no root");
+    }
+
+    @Test
+    public void bfs() throws Exception{
+        Tree<Integer> tree = new Tree<>();
+        Node<Integer> root = tree.addNode(45);
+        Node<Integer> A = tree.addNode(1);
+        Node<Integer> B = tree.addNode(2);
+        Node<Integer> C = tree.addNode(3);
+
+        tree.addNode("45 1", 4);
+
+        Iterator<Integer> iterator = tree.BFS();
+
+        ArrayList<Integer> check = new ArrayList<>();
+        ArrayList<Integer> answer = new ArrayList<>(Arrays.asList(45, 1, 2, 3, 4));
+
+        iterator.forEachRemaining(check::add);
+
+        Assertions.assertEquals(answer, check);
+        Assertions.assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void dfs() throws Exception{
+        Tree<Integer> tree = new Tree<>();
+        Node<Integer> root = tree.addNode(57);
+        Node<Integer> A = tree.addNode(1);
+        Node<Integer> B = tree.addNode(2);
+
+        tree.addNode("57 2", 4);
+
+        ArrayList<Integer> check = new ArrayList<>();
+        ArrayList<Integer> answer = new ArrayList<>(Arrays.asList(57, 2, 4, 1));
+
+        Iterator<Integer> iterator = tree.DFS();
+        iterator.forEachRemaining(check::add);
+
+        Assertions.assertEquals(answer, check);
+        Assertions.assertFalse(iterator.hasNext());
     }
 }

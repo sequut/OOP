@@ -31,6 +31,11 @@ public class Tree<Type> implements iterator{
         return root.getChildren().get(root.getChildren().size() - 1);
     }
 
+    /**
+     * added node with path
+     * here you should type your all path
+     * (with root)
+     */
     public void addNode(String path, Type value) throws Exception{
         String[] allpath = getPath(path);
 
@@ -74,6 +79,10 @@ public class Tree<Type> implements iterator{
         return path.length() == 0 ? new String[0] : path.split(" ");
     }
 
+    /**
+     * when you delete you should not count root
+     * type your path without root
+    */
     public void deleteWithPath(String path) throws Exception {
         String[] allpath = getPath(path);
         if (allpath.length == 0){
@@ -115,7 +124,7 @@ public class Tree<Type> implements iterator{
     }
 
     @Override
-    public Iterator<Type> DFS(){
+    public Iterator<Type> DFS() {
         return new Iterator<>() {
             private boolean rootHere = false;
             private final Stack<Node<Type>> stack = new Stack<>();
@@ -135,11 +144,14 @@ public class Tree<Type> implements iterator{
 
             @Override
             public Type next() {
-                Node<Type> node = stack.pop();
-                ArrayList<Node<Type>> children = node.getChildren();
-                for (Node<Type> child : children)
-                    stack.push(child);
-                return node.getValue();
+                if (hasNext()){
+                    Node<Type> node = stack.pop();
+                    ArrayList<Node<Type>> children = node.getChildren();
+                    for (Node<Type> child : children)
+                        stack.push(child);
+                    return node.getValue();
+                }
+                return null;
             }
         };
     }
@@ -165,11 +177,13 @@ public class Tree<Type> implements iterator{
 
             @Override
             public Type next() {
-                Node<Type> node = queue.peek();
-                assert node != null;
-                ArrayList<Node<Type>> children = node.getChildren();
-                queue.addAll(children);
-                return node.getValue();
+                if (hasNext()){
+                    Node<Type> node = queue.poll();
+                    ArrayList<Node<Type>> children = node.getChildren();
+                    queue.addAll(children);
+                    return node.getValue();
+                }
+                return null;
             }
         };
     }
