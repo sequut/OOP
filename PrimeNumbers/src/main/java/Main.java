@@ -10,6 +10,12 @@ public class Main {
         System.out.println(series.count());
         long time = System.currentTimeMillis() - start;
 
-        System.out.println("running time: " + time + "ms");
+        System.out.println("running time not parallel: " + time + "ms");
+
+        wParallelStream parallelStream = new wParallelStream(check);
+        start = System.currentTimeMillis();
+        System.out.println(parallelStream.count());
+        time = System.currentTimeMillis() - start;
+        System.out.println("running time with parallel stream: " + time + "ms");
     }
 }

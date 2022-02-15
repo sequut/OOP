@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class wSeries {
     private final ArrayList<Integer> numbers;
-    private boolean answer = true;
+    private boolean answer;
 
     wSeries(ArrayList<Integer> arrayList){
         this.numbers = arrayList;
@@ -12,7 +12,7 @@ public class wSeries {
     public boolean count(){
         for (Integer value: numbers)
             if (!isPrime(value))
-                answer = false;
+                answer = true;
         return answer;
     }
 }
