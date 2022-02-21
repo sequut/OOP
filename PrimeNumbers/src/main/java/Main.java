@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args){
         createNumbers make = new createNumbers();
 
-        ArrayList<Integer> check = make.createRandom(1000000);
+        ArrayList<Integer> check = make.createRandom(100);
         wSeries series = new wSeries(check);
         long start = System.currentTimeMillis();
         System.out.println(series.count());
