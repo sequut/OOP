@@ -9,7 +9,7 @@ public class wParallelStream {
     }
 
     public boolean count(){
-        int calc = (int) numbers.parallelStream().filter(x -> isPrime(x)).count();
-        return calc != numbers.size();
+        boolean answer = numbers.parallelStream().anyMatch(x -> !isPrime(x));
+        return answer;
     }
 }
