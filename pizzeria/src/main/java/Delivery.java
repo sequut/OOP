@@ -19,7 +19,7 @@ public class Delivery implements Runnable {
                 int currentSize = 0;
                 ArrayList<Order> courier = new ArrayList<>();
 
-                TimeUnit.SECONDS.sleep(4); //waiting for ready orders
+                TimeUnit.SECONDS.sleep(2); //waiting for ready orders
 
                 while (!storageQueue.isEmpty()){
                     Order order = storageQueue.peek();

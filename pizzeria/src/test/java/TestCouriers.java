@@ -44,7 +44,7 @@ public class TestCouriers {
 
         TimeUnit.SECONDS.sleep(2);
 
-        Assertions.assertTrue(orderQueue.isEmpty());
+        Assertions.assertTrue(storageQueue.isEmpty());
 
         executor.shutdown();
     }
