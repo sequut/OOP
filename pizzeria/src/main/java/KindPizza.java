@@ -32,7 +32,7 @@ public class KindPizza {
     }
 
     public int getSize(){
-        return size.ordinal();
+        return size.ordinal() + 1;
     }
 
     public String getInfo(){

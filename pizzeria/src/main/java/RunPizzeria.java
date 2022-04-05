@@ -8,12 +8,13 @@ public class RunPizzeria {
     private final LinkedBlockingQueue<Order> orderQueue;
     private final ArrayBlockingQueue<Order> storageQueue;
 
-    private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final ExecutorService executor;
 
     RunPizzeria(PizzeriaData pizzeriaData){
+        this.executor = Executors.newCachedThreadPool();
         this.pizzeriaData = pizzeriaData;
-        orderQueue = new LinkedBlockingQueue<>();
-        storageQueue = new ArrayBlockingQueue<>(pizzeriaData.getStorage());
+        this.orderQueue = new LinkedBlockingQueue<>();
+        this.storageQueue = new ArrayBlockingQueue<>(pizzeriaData.getStorage());
 
         pizzeriaData.writeAllData();
 
@@ -28,10 +29,10 @@ public class RunPizzeria {
     }
 
     private void working(){
-        for (int i = 0; i < pizzeriaData.getBackersExp().length; i++)
-            executor.execute(new CreatePizza(orderQueue, storageQueue, pizzeriaData.getBackersExp()[i]));
+        for (int exp : pizzeriaData.getBackersExp())
+            executor.execute(new CreatePizza(orderQueue, storageQueue, exp));
 
-        int[] deli = pizzeriaData.getDelivery();
-        for (int j : deli) executor.execute(new Delivery(storageQueue, j));
+        for (int deliSize : pizzeriaData.getDelivery())
+            executor.execute(new Delivery(storageQueue, deliSize));
     }
 }

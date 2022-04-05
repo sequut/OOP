@@ -14,16 +14,16 @@ public class CreatePizza implements Runnable {
 
     private void cook(Order order) throws InterruptedException{
         TimeUnit.SECONDS.sleep((order.getKindPizza().getTime()) / experience);
-        System.out.println("id: " + String.format("%2d", order.getOrderId()) + " cooked");
+        System.out.println("id: " + String.format("%2d", order.getOrderId()) + " || pizza: " + order.getKindPizza().getInfo() + " COOKED");
     }
 
     @Override
     public void run(){
-        while (!orderQueue.isEmpty()){
+        while (true){
             try {
                 Order order = orderQueue.take();
                 cook(order);
-                System.out.println("id: "+ String.format("%2d",order.getOrderId()) + " in storage now");
+                System.out.println("id: " + String.format("%2d",order.getOrderId()) + " || pizza: " + order.getKindPizza().getInfo() + " IN STORAGE NOW");
                 storageQueue.add(order);
             } catch (InterruptedException e) {
                 e.printStackTrace();

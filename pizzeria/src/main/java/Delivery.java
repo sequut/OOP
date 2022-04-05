@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -13,13 +14,16 @@ public class Delivery implements Runnable {
 
     @Override
     public void run() {
-        int currentSize = 0;
-        while(!storageQueue.isEmpty()){
+        while(true){
             try {
+                int currentSize = 0;
                 ArrayList<Order> courier = new ArrayList<>();
+
+                TimeUnit.SECONDS.sleep(4); //waiting for ready orders
+
                 while (!storageQueue.isEmpty()){
                     Order order = storageQueue.peek();
-                    if (currentSize + order.getKindPizza().getSize() < size){
+                    if (order != null && currentSize + order.getKindPizza().getSize() < size){
                         Order takeOrder = storageQueue.take();
                         courier.add(takeOrder);
                         currentSize += takeOrder.getKindPizza().getSize();
@@ -28,20 +32,24 @@ public class Delivery implements Runnable {
                         break;
                 }
                 if (courier.size() > 0){
-                    System.out.println("courier takes pizza for delivery");
+                    System.out.println("COURIER TAKES TAKES PIZZA FOR DELIVERY");
                     delivery(courier);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("courier is done");
+        //System.out.println("courier is done");
     }
 
     private void delivery(ArrayList<Order> courier) throws InterruptedException {
+        ArrayList<Integer> ordersId = new ArrayList<>();
         for (Order order: courier) {
+            ordersId.add(order.getOrderId());
             TimeUnit.SECONDS.sleep(order.getDeliveryTime());
-            System.out.println(order.getKindPizza().getInfo() + " at home");
+            System.out.println("id: " + String.format("%2d",order.getOrderId()) + " || pizza: " + order.getKindPizza().getInfo() + " AT HOME NOW");
         }
+
+        System.out.println("ORDERS: " + Arrays.toString(ordersId.toArray()));
     }
 }
