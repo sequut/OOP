@@ -17,12 +17,18 @@ public class Delivery implements Runnable {
         while(true){
             try {
                 int currentSize = 0;
+                int countRequest = 0;
+                /*
+                courier can make only 3 requests to storage
+                also this feature can be disabled very simply
+                 */
                 ArrayList<Order> courier = new ArrayList<>();
 
                 TimeUnit.SECONDS.sleep(2); //waiting for ready orders
 
-                while (!storageQueue.isEmpty()){
+                while (!storageQueue.isEmpty() && countRequest < 3){
                     Order order = storageQueue.peek();
+                    countRequest += 1;
                     if (order != null && currentSize + order.getKindPizza().getSize() < size){
                         Order takeOrder = storageQueue.take();
                         courier.add(takeOrder);
