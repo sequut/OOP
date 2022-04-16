@@ -21,7 +21,7 @@ public class TestCouriers {
         executor.execute(new Delivery(storageQueue, 3));
         executor.execute(new Delivery(storageQueue, 3));
 
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(20);
 
         Assertions.assertTrue(storageQueue.isEmpty());
 
