@@ -6,15 +6,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import sequut.logic.*;
+import sequut.settings.Settings;
 
 public class Main extends Application {
-
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 500;
 
     private Game game;
     private Grid grid;
     private GraphicsContext context;
+
+    private Settings settings = new Settings();
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -22,8 +22,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         StackPane root = new StackPane();
-        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        Canvas canvas = new Canvas(settings.getWidth(), settings.getHeight() +
+                                Math.min(settings.getHeight(), settings.getWidth()) / 30);
         context = canvas.getGraphicsContext2D();
 
         canvas.setFocusTraversable(true);
@@ -70,8 +72,8 @@ public class Main extends Application {
     }
 
     private void reset() {
-        grid = new Grid(WIDTH, HEIGHT);
-        game = new Game(grid, context);
+        grid = new Grid(settings);
+        game = new Game(grid, context, settings);
         Painter.paint(grid, context);
     }
 }

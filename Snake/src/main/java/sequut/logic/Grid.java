@@ -1,27 +1,32 @@
 package sequut.logic;
 
 import javafx.scene.paint.Color;
+import sequut.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Grid {
-    public static final int SIZE = 10;
+    public static int SIZE;
 
     public static final Color COLOR = new Color(0, 0.2, 0.2, 1);
 
     private final int columns;
     private final int rows;
 
-    private static final int foodCount = 10;
+    private static int foodCount;
     private final Snake snake;
     private final List<Food> food;
+    private Settings settings;
 
-    public Grid(final double width, final double height){
+    public Grid(Settings settings){
+        this.settings = settings;
         Random random = new Random();
-        rows = (int)width/SIZE;
-        columns = (int)height/SIZE;
+        rows = (int)settings.getWidth()/settings.getCellSize();
+        columns = (int)settings.getHeight()/settings.getCellSize();
+        SIZE = settings.getCellSize();
+        foodCount = settings.getFoodCount();
 
         snake = new Snake(this, new Point(rows/2, columns/2));
         food = new ArrayList<>();

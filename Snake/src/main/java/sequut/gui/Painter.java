@@ -12,18 +12,22 @@ public class Painter {
     private static int textSize;
 
     public static void paint(Grid grid, GraphicsContext gc) {
-        gc.setFill(Grid.COLOR);
-        gc.fillRect(0, 0, grid.getWidth(), grid.getHeight());
-
         width = (int) grid.getWidth();
-        height = (int) grid.getHeight();
         textSize = Math.min(width, height) / 30;
-        // Now the Food
+        height = (int) grid.getHeight() + textSize;
+
+
+        gc.setFill(Grid.COLOR);
+        gc.fillRect(0, 0, grid.getWidth(), height);
+
+        gc.setFill(Color.BEIGE);
+        gc.fillRect(0, grid.getHeight(), grid.getWidth(), 1);
+
         for (int i = 0; i < grid.getFood().size(); i++){
             gc.setFill(grid.getFood().get(i).getCOLOR());
             paintPoint((grid.getFood().get(i).getPoint()), gc);
         }
-        // Now the snake
+
         Snake snake = grid.getSnake();
         gc.setFill(Snake.COLOR);
         snake.getPoints().forEach(point -> paintPoint(point, gc));
@@ -35,7 +39,7 @@ public class Painter {
         gc.setFill(Color.BEIGE);
         gc.setTextAlign(TextAlignment.LEFT);
         gc.setFont(Font.font("Arial", textSize));
-        gc.fillText("Score : " + snake.getPoints().size(), 10, height - 10);
+        gc.fillText("score : " + snake.getPoints().size(), textSize/4, height - textSize/4);
     }
 
     private static void paintPoint(Point point, GraphicsContext gc) {

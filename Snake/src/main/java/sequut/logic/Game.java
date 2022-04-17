@@ -1,6 +1,7 @@
 package sequut.logic;
 import javafx.scene.canvas.GraphicsContext;
 import sequut.gui.Painter;
+import sequut.settings.Settings;
 
 public class Game implements Runnable{
     private final Grid grid;
@@ -11,11 +12,11 @@ public class Game implements Runnable{
     private boolean paused;
     private boolean keyIsPressed;
 
-    public Game(final Grid grid, final GraphicsContext context) {
+    public Game(final Grid grid, final GraphicsContext context, Settings settings) {
         this.grid = grid;
         this.context = context;
-        frameRate = 40;
-        interval = 2000.0f / frameRate;
+        frameRate = settings.getFrameRate();
+        interval = settings.getInterval();
         running = true;
         paused = false;
         keyIsPressed = false;

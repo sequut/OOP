@@ -46,6 +46,10 @@ public class Snake {
         this.alive = aliveStatus;
     }
 
+    public int getLength() {
+        return length;
+    }
+
     public void growTo(Point point){
         length += 1;
         snake.add(point);
@@ -74,11 +78,12 @@ public class Snake {
     }
 
     private void checkAndAdd(Point point) {
-        if (point.getX() >= grid.getRows() || point.getY() >= grid.getCols() || point.getX() < 0 || point.getY() < 0){
-            // || snake.contains(point)
+        if ((point.getX() >= grid.getRows() || point.getY() >= grid.getCols() || point.getX() < 0 || point.getY() < 0) ||
+        (length !=1 && snake.contains(point) && (xDelta != 0 || yDelta != 0) && !snake.get(snake.size() - 1).equals(point))){
             alive = false;
             return;
         }
+
         snake.add(point);
         head = point;
     }
