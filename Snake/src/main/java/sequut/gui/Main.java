@@ -14,18 +14,18 @@ public class Main extends Application {
     private Grid grid;
     private GraphicsContext context;
 
-    private Settings settings = new Settings();
+    private final Settings settings = new Settings();
 
     public static void main(String[] args) {
         Application.launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         StackPane root = new StackPane();
         Canvas canvas = new Canvas(settings.getWidth(), settings.getHeight() +
-                                Math.min(settings.getHeight(), settings.getWidth()) / 30);
+                                Math.min(settings.getHeight(), (settings.getWidth()) / 30));
         context = canvas.getGraphicsContext2D();
 
         canvas.setFocusTraversable(true);
@@ -34,7 +34,6 @@ public class Main extends Application {
             if (game.isKeyPressed()) {
                 return;
             }
-            //System.out.println("x: " + snake.getHead().getX() + " | y: " + snake.getHead().getY());
             switch (e.getCode()) {
                 case UP:
                     snake.goUp();
@@ -74,6 +73,7 @@ public class Main extends Application {
     private void reset() {
         grid = new Grid(settings);
         game = new Game(grid, context, settings);
-        Painter.paint(grid, context);
+        settings.updateGoal();
+        Painter.paint(grid, context, settings);
     }
 }

@@ -1,12 +1,18 @@
 package sequut.settings;
 
+import java.util.Random;
+
 public class Settings {
     private int width = 1000;
     private int height = 1000;
-    private int frameRate = 10;
+    private int frameRate = 20;
     private float interval = 2000.0f / frameRate;
-    private int foodCount = 1;
-    private int cellSize = 100;
+    private int foodCount = 50;
+    private int cellSize = 10;
+
+    private final Random random = new Random();
+    private final int cellsCount = (width/cellSize) * (height/cellSize);
+    private int goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
 
     Settings(int width, int height, int frameRate, int interval, int foodCount, int cellSize){
         this.width = width;
@@ -36,5 +42,12 @@ public class Settings {
     }
     public int getCellSize() {
         return cellSize;
+    }
+    public int getGoal(){
+        return goal;
+    }
+
+    public void updateGoal(){
+        this.goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
     }
 }

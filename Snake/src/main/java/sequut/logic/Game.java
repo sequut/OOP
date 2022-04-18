@@ -11,6 +11,7 @@ public class Game implements Runnable{
     private boolean running;
     private boolean paused;
     private boolean keyIsPressed;
+    private final Settings settings;
 
     public Game(final Grid grid, final GraphicsContext context, Settings settings) {
         this.grid = grid;
@@ -20,6 +21,7 @@ public class Game implements Runnable{
         running = true;
         paused = false;
         keyIsPressed = false;
+        this.settings = settings;
     }
 
     @Override
@@ -30,11 +32,12 @@ public class Game implements Runnable{
 
             keyIsPressed = false;
             grid.update();
-            Painter.paint(grid, context);
+            Painter.paint(grid, context, settings);
 
             if (!grid.getSnake().isAlive()) {
                 pause();
                 Painter.paintResetMessage(context);
+                Painter.paintFinalGoal(context, settings, grid);
                 break;
             }
 
