@@ -110,8 +110,6 @@ public class Painter {
         gc.setFill(Color.DODGERBLUE);
         gc.setTextAlign(TextAlignment.CENTER);
 
-
-
         gc.setFont(Font.font("Arial", textSize));
         int wCenter = width / 2;
         int hCenter = height / 2;
