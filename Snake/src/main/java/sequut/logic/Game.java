@@ -36,9 +36,16 @@ public class Game implements Runnable{
 
             if (!grid.getSnake().isAlive()) {
                 pause();
-                Painter.paintResetMessage(context);
-                Painter.paintFinalGoal(context, settings, grid);
-                break;
+                System.out.println(grid.getSnake().getLength() + " " + grid.getCols() * grid.getRows());
+                if (grid.getSnake().getLength() - 1 == grid.getCols() * grid.getRows()){
+                    Painter.paintMegaCongrats(context);
+                    break;
+                }
+                else {
+                    Painter.paintResetMessage(context);
+                    Painter.paintFinalGoal(context, settings, grid);
+                    break;
+                }
             }
 
             time = System.currentTimeMillis() - time;
@@ -66,6 +73,10 @@ public class Game implements Runnable{
 
     public void resume() {
         paused = false;
+    }
+
+    public void revertGame(){
+        paused = !paused;
     }
 
     public void pause() {

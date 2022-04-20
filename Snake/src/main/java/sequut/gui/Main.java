@@ -35,16 +35,16 @@ public class Main extends Application {
                 return;
             }
             switch (e.getCode()) {
-                case UP:
+                case UP, W:
                     snake.goUp();
                     break;
-                case DOWN:
+                case DOWN, S:
                     snake.goDown();
                     break;
-                case LEFT:
+                case LEFT, A:
                     snake.goLeft();
                     break;
-                case RIGHT:
+                case RIGHT, D:
                     snake.goRight();
                     break;
                 case ENTER:

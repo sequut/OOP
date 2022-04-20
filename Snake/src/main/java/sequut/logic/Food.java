@@ -2,8 +2,6 @@ package sequut.logic;
 
 import javafx.scene.paint.Color;
 
-import java.util.Random;
-
 public class Food {
     private static final Color[] COLORS = {
             Color.CORAL,
@@ -15,14 +13,11 @@ public class Food {
             Color.color(0.7412, 0.7176, 0.41, 0.58)
     };
 
-    private final Random random;
-
     private final Color COLOR;
     private Point point;
 
     public Food(Point point, int random){
         this.point = point;
-        this.random = new Random();
         this.COLOR = COLORS[random];
     }
 

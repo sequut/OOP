@@ -19,19 +19,20 @@ public class Painter {
         textHelp = (textSize/4);
         height = (int) grid.getHeight() + textSize;
 
-        paintGrid(gc, grid);
+        paintGrid(gc, grid, settings);
         paintLine(gc, grid);
         paintFood(gc, grid);
 
         Snake snake = grid.getSnake();
         paintSnake(gc, snake);
+
         paintScore(gc, snake);
         paintGoal(gc, settings);
     }
 
-    private static void paintGrid(GraphicsContext gc, Grid grid){
+    private static void paintGrid(GraphicsContext gc, Grid grid, Settings settings){
         gc.setFill(Grid.COLOR);
-        gc.fillRect(0, 0, grid.getWidth(), height);
+        gc.fillRect(0, 0, settings.getWidth(), height);
     }
 
     private static void paintLine(GraphicsContext gc, Grid grid){
@@ -91,9 +92,26 @@ public class Painter {
         gc.fillText("goal: " + settings.getGoal(), width - textHelp, height - textHelp);
     }
 
-    public static void paintResetMessage(GraphicsContext gc) {
-        gc.setFill(Color.AQUAMARINE);
+    public static void paintMegaCongrats(GraphicsContext gc){
+        gc.setFill(Color.BEIGE);
+        gc.fillRect(0, 0, width, height);
+
+        gc.setFill(Color.DODGERBLUE);
         gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(Font.font("Arial", textSize));
+        int wCenter = width / 2;
+        int hCenter = height / 2;
+        gc.fillText("congrats..", wCenter, hCenter);
+        gc.fillText("(press alt + f4 to reset game)", wCenter, hCenter + textSize * 2);
+
+    }
+
+    public static void paintResetMessage(GraphicsContext gc) {
+        gc.setFill(Color.DODGERBLUE);
+        gc.setTextAlign(TextAlignment.CENTER);
+
+
+
         gc.setFont(Font.font("Arial", textSize));
         int wCenter = width / 2;
         int hCenter = height / 2;

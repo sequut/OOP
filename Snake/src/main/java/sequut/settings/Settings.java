@@ -3,12 +3,12 @@ package sequut.settings;
 import java.util.Random;
 
 public class Settings {
-    private int width = 1000;
-    private int height = 1000;
-    private int frameRate = 20;
+    private int width = 600;
+    private int height = 600;
+    private int frameRate = 5;
     private float interval = 2000.0f / frameRate;
-    private int foodCount = 50;
-    private int cellSize = 10;
+    private int foodCount = 10;
+    private int cellSize = 100;
 
     private final Random random = new Random();
     private final int cellsCount = (width/cellSize) * (height/cellSize);

@@ -18,6 +18,7 @@ public class Snake {
     private int xDelta;
     private int yDelta;
     private int moveValue = 0;
+    private int ate = 0;
 
     public Snake(Grid grid, Point point) {
         length = 1;
@@ -42,17 +43,13 @@ public class Snake {
         return alive;
     }
 
-    public void setAliveStatus(boolean aliveStatus){
-        this.alive = aliveStatus;
-    }
-
     public int getLength() {
         return length;
     }
 
     public void growTo(Point point){
         length += 1;
-        snake.add(point);
+        ate = 1;
     }
 
     public void extend() {
@@ -69,8 +66,12 @@ public class Snake {
 
     private void shiftTo(Point point) {
         checkAndAdd(point);
-        if (alive)
-            snake.remove(0);
+        if (alive){
+            if (ate > 0)
+                ate = 0;
+            else
+                snake.remove(0);
+        }
     }
 
     public void updateMoveValue() {
