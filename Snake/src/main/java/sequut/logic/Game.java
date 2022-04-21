@@ -36,7 +36,6 @@ public class Game implements Runnable{
 
             if (!grid.getSnake().isAlive()) {
                 pause();
-                System.out.println(grid.getSnake().getLength() + " " + grid.getCols() * grid.getRows());
                 if (grid.getSnake().getLength() - 1 == grid.getCols() * grid.getRows()){
                     Painter.paintMegaCongrats(context);
                     break;

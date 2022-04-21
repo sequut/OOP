@@ -5,10 +5,10 @@ import java.util.Random;
 public class Settings {
     private int width = 600;
     private int height = 600;
-    private int frameRate = 5;
+    private int frameRate = 10;
     private float interval = 2000.0f / frameRate;
-    private int foodCount = 10;
-    private int cellSize = 100;
+    private int foodCount = 40;
+    private int cellSize = 60;
 
     private final Random random = new Random();
     private final int cellsCount = (width/cellSize) * (height/cellSize);
