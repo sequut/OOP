@@ -3,34 +3,59 @@ package sequut.settings;
 import java.util.Random;
 
 public class Settings {
-    private int width = 600;
-    private int height = 600;
-    private int frameRate = 10;
+    private Integer rows = 10;
+    private Integer columns = 10;
+    private Integer frameRate = 20;
     private float interval = 2000.0f / frameRate;
-    private int foodCount = 40;
-    private int cellSize = 60;
+    private Integer foodCount = 8;
+    private Integer cellSize = 100;
+
+    private Integer width = columns * cellSize;
+    private Integer height = rows * cellSize;
 
     private final Random random = new Random();
-    private final int cellsCount = (width/cellSize) * (height/cellSize);
-    private int goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
+    private Integer cellsCount = rows * columns;
+    private Integer goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
 
-    Settings(int width, int height, int frameRate, int interval, int foodCount, int cellSize){
-        this.width = width;
-        this.height = height;
+
+    public Settings(Integer columns, Integer rows, Integer frameRate, Integer foodCount, Integer cellSize){
+        this.columns = columns;
+        this.rows = rows;
         this.frameRate = frameRate;
-        this.interval = interval;
+        this.interval = 2000.0f / frameRate;
         this.foodCount = foodCount;
         this.cellSize = cellSize;
+
+        width = columns * cellSize;
+        height = rows * cellSize;
+
+        cellsCount = rows * columns;
+        goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
     }
     public Settings(){
 
     }
-    public int getWidth() {
+
+    public void setFoodCount(int foodCount){
+        this.foodCount = foodCount;
+    }
+
+    public int getWidth(){
         return width;
     }
-    public int getHeight() {
+
+    public int getHeight(){
         return height;
     }
+
+    public int getRows(){
+        return rows;
+    }
+
+    public int getColumns(){
+        return columns;
+    }
+
     public int getFrameRate() {
         return frameRate;
     }

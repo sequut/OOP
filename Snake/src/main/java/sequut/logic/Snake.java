@@ -79,7 +79,7 @@ public class Snake {
     }
 
     private void checkAndAdd(Point point) {
-        if ((point.getX() >= grid.getRows() || point.getY() >= grid.getCols() || point.getX() < 0 || point.getY() < 0) ||
+        if ((point.getY() >= grid.getRows() || point.getX() >= grid.getCols() || point.getX() < 0 || point.getY() < 0) ||
         (snake.contains(point) && !point.equals(head))){
             alive = false;
             return;

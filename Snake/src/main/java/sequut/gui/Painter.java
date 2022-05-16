@@ -32,7 +32,7 @@ public class Painter {
 
     private static void paintGrid(GraphicsContext gc, Grid grid, Settings settings){
         gc.setFill(Grid.COLOR);
-        gc.fillRect(0, 0, settings.getWidth(), height);
+        gc.fillRect(0, 0, width, height + 200);
     }
 
     private static void paintLine(GraphicsContext gc, Grid grid){

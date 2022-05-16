@@ -20,14 +20,19 @@ public class Grid {
     private final Snake snake;
     private final List<Food> food;
 
+    private final Settings settings;
+
     public Grid(Settings settings){
+        this.settings = settings;
+
         Random random = new Random();
-        rows = settings.getWidth() /settings.getCellSize();
-        columns = settings.getHeight() /settings.getCellSize();
+        rows = settings.getRows();
+        columns = settings.getColumns();
+
         SIZE = settings.getCellSize();
         int foodCount = settings.getFoodCount();
 
-        snake = new Snake(this, new Point(rows/2, columns/2));
+        snake = new Snake(this, new Point((columns/2), rows/2));
         food = new ArrayList<>();
         Food foodAdd;
         currentFood = 0;
@@ -49,7 +54,7 @@ public class Grid {
         int status = 0;
 
         do {
-            generatedPoint = new Point(random.nextInt(rows), random.nextInt(columns));
+            generatedPoint = new Point(random.nextInt(columns), random.nextInt(rows));
 
             for (Food check: food) {
                 if (check.getPoint().equals(generatedPoint)){
@@ -80,19 +85,19 @@ public class Grid {
     }
 
     public int getCols() {
-        return columns;
+        return settings.getColumns();
     }
 
     public int getRows() {
-        return rows;
+        return settings.getRows();
     }
 
     public double getWidth() {
-        return rows * SIZE;
+        return settings.getWidth();
     }
 
     public double getHeight() {
-        return columns * SIZE;
+        return settings.getHeight();
     }
 
     public Snake getSnake() {
