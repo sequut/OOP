@@ -18,6 +18,7 @@ public class Grid {
     private static int currentFood;
 
     private final Snake snake;
+    private List<Snake> snakes;
     private final List<Food> food;
 
     private final Settings settings;

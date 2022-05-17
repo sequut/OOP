@@ -1,7 +1,5 @@
 package sequut.gui;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -37,6 +35,7 @@ public class Main extends Application {
     TextField frameRate = new TextField("10");
     TextField foodCount = new TextField("2");
     TextField cellSize = new TextField("100");
+    TextField snakes = new TextField("1");
     VBox strings = new VBox();
 
     @Override
@@ -46,38 +45,58 @@ public class Main extends Application {
         strings.setPadding(new Insets(10, 30, 10, 30));
         strings.setSpacing(20);
 
-        strings.getChildren().add(new Text("Please select your settings below"));
+        strings.getChildren().add(new Text("S E T T I N G S"));
 
-        strings.getChildren().add(new Text("columns"));
+        strings.getChildren().add(new Text("columns:"));
         strings.getChildren().add(columns);
-        strings.getChildren().add(new Text("rows"));
+        strings.getChildren().add(new Text("rows:"));
         strings.getChildren().add(rows);
-        strings.getChildren().add(new Text("framerate"));
+        strings.getChildren().add(new Text("framerate:"));
         strings.getChildren().add(frameRate);
-        strings.getChildren().add(new Text("number of food"));
+        strings.getChildren().add(new Text("number of food:"));
         strings.getChildren().add(foodCount);
-        strings.getChildren().add(new Text("cell size"));
+        strings.getChildren().add(new Text("cell size:"));
         strings.getChildren().add(cellSize);
+        strings.getChildren().add(new Text("snakes number:"));
+        strings.getChildren().add(snakes);
+
         strings.getChildren().add(buttonBox);
 
         buttonBox.setSpacing(100);
         buttonBox.getChildren().add(button);
 
         int WIDTH = 500;
-        int HEIGHT = 500;
+        int HEIGHT = 600;
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         primaryStage.setTitle("Snake");
         primaryStage.setScene(scene);
         primaryStage.show();
 
         button.setOnAction(e -> {
+            int cols = Integer.parseInt(columns.getText());
+            int row = Integer.parseInt(rows.getText());
+            int frame = Integer.parseInt(frameRate.getText());
+            int food = Integer.parseInt(foodCount.getText());
+            int cellsize = Integer.parseInt(cellSize.getText());
+            int snakeCount = Integer.parseInt(snakes.getText());
+
+            cols = cols <= 0 ? row : cols;
+            row = row <= 0 ? cols : row;
+            frame = frame <= 0 ? 7 : frame;
+
+            food = food <= 0 ? (row * cols) / 2 : food;
+            cellsize = cellsize <= 0 ? 50 : cellsize;
+            snakeCount = snakeCount <= 0 ? 1 : snakeCount;
+
+
             try {
-                settings = new Settings(Integer.parseInt(columns.getText()), Integer.parseInt(rows.getText()), Integer.parseInt(frameRate.getText()),
-                        Integer.parseInt(foodCount.getText()), Integer.parseInt(cellSize.getText()));
+                settings = new Settings(cols, row, frame, food, cellsize, snakeCount);
             }
             catch (Exception exc){
                 settings = new Settings();
             }
+
+
 
             if (settings.getWidth() > 2000 || settings.getHeight() > 2000){
                 settings = new Settings();

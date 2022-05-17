@@ -3,34 +3,42 @@ package sequut.settings;
 import java.util.Random;
 
 public class Settings {
-    private Integer rows = 10;
-    private Integer columns = 10;
-    private Integer frameRate = 20;
+    private int rows = 10;
+    private int columns = 10;
+    private int frameRate = 20;
     private float interval = 2000.0f / frameRate;
-    private Integer foodCount = 8;
-    private Integer cellSize = 100;
+    private int foodCount = 8;
+    private int cellSize = 100;
 
-    private Integer width = columns * cellSize;
-    private Integer height = rows * cellSize;
+    private int width = columns * cellSize;
+    private int height = rows * cellSize;
 
     private final Random random = new Random();
-    private Integer cellsCount = rows * columns;
-    private Integer goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
+    private int cellsCount = rows * columns;
+    private int goal = cellsCount / 2 + (random.nextInt() % (cellsCount / 20));
 
+    private int snakes = 1;
 
-    public Settings(Integer columns, Integer rows, Integer frameRate, Integer foodCount, Integer cellSize){
+    public Settings(int columns, int rows, int frameRate, int foodCount, int cellSize, int snakes){
         this.columns = columns;
         this.rows = rows;
         this.frameRate = frameRate;
         this.interval = 2000.0f / frameRate;
         this.foodCount = foodCount;
         this.cellSize = cellSize;
+        this.snakes = snakes;
 
         width = columns * cellSize;
         height = rows * cellSize;
 
         cellsCount = rows * columns;
-        goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
+        try{
+            goal = cellsCount / 2 + (random.nextInt() % (cellsCount / 20));
+        }
+        catch (Exception exc){
+            goal = cellsCount / 2 + 1;
+        }
+
     }
     public Settings(){
 
@@ -73,6 +81,11 @@ public class Settings {
     }
 
     public void updateGoal(){
-        this.goal = cellsCount/2 + (random.nextInt() % (cellsCount / 20));
+        try{
+            goal = cellsCount / 2 + (random.nextInt() % (cellsCount / 20));
+        }
+        catch (Exception exc){
+            goal = cellsCount / 2 + 1;
+        }
     }
 }
