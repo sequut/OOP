@@ -7,7 +7,7 @@ public class jsonParser {
     private final String filename;
 
     public jsonParser(){
-        this.filename = "/home/andrey/IdeaProjects/OOP/pizzeria/pizza.json";
+        this.filename = "/Users/sequut/Desktop/ef/java/OOP/pizzeria/pizza.json";
     }
 
     public jsonParser(String path){

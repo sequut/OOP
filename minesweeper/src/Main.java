@@ -8,7 +8,7 @@ public class Main extends JFrame {
     private JPanel jPanel;
     private JLabel jLabel;
     private JLabel timerLabel;
-    private final int BOMBSCOUNT = 10;
+    private final int BOMBSCOUNT = 30;
     private final int IMAGESIZE = 50;
     private final int TIMERSIZE = 36;
     private final Controller controller;
@@ -21,8 +21,8 @@ public class Main extends JFrame {
     }
 
     private Main () {
-        int COLS = 9;
-        int ROWS = 9;
+        int COLS = 15;
+        int ROWS = 15;
         controller = new Controller(COLS, ROWS, BOMBSCOUNT);
         setImages();
         initJlabel();
@@ -121,12 +121,16 @@ public class Main extends JFrame {
     }
 
     private void setImages(){
-        for (Cell cell : Cell.values())
+        for (Cell cell : Cell.values()){
             cell.image = getImage(cell.name().toLowerCase());
+        }
     }
 
     private Image getImage(String filename){
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(filename + ".png")));
+        //System.out.println(filename);
+        //System.out.println(getClass().getResource("images/" + filename + ".png"));
+        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/" + filename + ".png")));
+        //this.getClass().getResource("images/filename.png")
         return imageIcon.getImage();
     }
 

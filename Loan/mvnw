@@ -98,6 +98,7 @@ if [ -z "$M2_HOME" ] ; then
   # make it fully qualified
   M2_HOME=`cd "$M2_HOME" && pwd`
 
+  # shellcheck disable=SC2164
   cd "$saveddir"
   # echo Using m2 at $M2_HOME
 fi

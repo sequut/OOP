@@ -1,6 +1,5 @@
 package com.loan;
 
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.math.BigDecimal;

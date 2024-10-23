@@ -42,7 +42,7 @@ public class Grid {
             if (currentFood + snake.getLength() >= columns * rows)
                 break;
 
-            int number = random.nextInt(0, Food.getNumberOfColors());
+            int number = 4;//random.nextInt(0, Food.getNumberOfColors());
             foodAdd = new Food(getRandPoint(), number);
             food.add(foodAdd);
             currentFood += 1;
