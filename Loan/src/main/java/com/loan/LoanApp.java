@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -25,6 +26,12 @@ public class LoanApp extends Application {
     private final TableView<PaymentScheduleRow> tableView = new TableView<>();
     private boolean scheduleReady = false;
     private List<PaymentSchedule> currentSchedule = null;
+    private LoanParameters params = null;
+
+    private TextField amountField;
+    private TextField interestRateField;
+    private TextField termField;
+    private TextField startDateField;
 
     @Override
     public void start(Stage primaryStage) {
@@ -42,6 +49,7 @@ public class LoanApp extends Application {
 
         FileChooser fileChooser = new FileChooser();
         ComboBox<String> paymentTypeCombo = new ComboBox<>();
+        Button textParameters = new Button("параметры");
         Button calculateButton = new Button("посчитать");
         paymentTypeCombo.getItems().addAll("дифференцированные платежи", "аннуитетные платежи");
 
@@ -75,7 +83,10 @@ public class LoanApp extends Application {
                     }
                 }
             }
+
         });
+
+        textParameters.setOnAction(_ -> readParameters());
 
         showGraph.setOnAction(_ -> {
             if (scheduleReady && currentSchedule != null)
@@ -93,7 +104,7 @@ public class LoanApp extends Application {
             if (file != null) {
                 try {
                     ExcelReader reader = new ExcelReader();
-                    LoanParameters params = reader.readLoanParameters(file);
+                    params = reader.readLoanParameters(file);
 
                     String paymentType = paymentTypeCombo.getValue();
                     if (paymentType != null) {
@@ -113,7 +124,23 @@ public class LoanApp extends Application {
                 } catch (Exception ex) {
                     showAlert("ошибка при чтении файла: " + ex.getMessage());
                 }
-            } else
+            } else if (params != null){
+                String paymentType = paymentTypeCombo.getValue();
+                if (paymentType != null) {
+                    List<PaymentSchedule> schedule;
+                    scheduleReady = true;
+
+                    if (paymentType.equals("дифференцированные платежи"))
+                        schedule = calculator.calculateDifferentiated(params);
+                    else
+                        schedule = calculator.calculateAnnuity(params);
+
+                    currentSchedule = schedule;
+                    populateTable(schedule);
+                } else
+                    showAlert("пожалуйста, выберите тип платежей");
+            }
+            else
                 showAlert("пожалуйста, загрузите файл");
         });
 
@@ -132,12 +159,56 @@ public class LoanApp extends Application {
         menuWindow.getItems().addAll(size800x600, size1024x768, size1280x720);
         menuBar.getMenus().addAll(menuFile, menuWindow);
 
-        VBox layout = new VBox(10, menuBar, calculateButton, paymentTypeCombo, tableView);
+        VBox layout = new VBox(10, menuBar, textParameters, calculateButton, paymentTypeCombo, tableView);
         Scene scene = new Scene(layout, 800, 600);
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    private void readParameters(){
+        Stage readStage = new Stage();
+        readStage.setTitle("параметры");
+
+        amountField = new TextField();
+        amountField.setPromptText("введите сумму кредита");
+
+        interestRateField = new TextField();
+        interestRateField.setPromptText("введите процентную ставку");
+
+        termField = new TextField();
+        termField.setPromptText("введите срок кредита в месяцах");
+
+        startDateField = new TextField();
+        startDateField.setPromptText("введите дату начала кредита (year-mm-dd)");
+
+
+        Button submitButton = new Button("Подтвердить");
+        submitButton.setOnAction(_ -> validateInput(readStage));
+
+        VBox layout = new VBox(10, amountField, interestRateField, termField, startDateField, submitButton);
+        Scene scene = new Scene(layout, 800, 600);
+
+
+
+        readStage.setScene(scene);
+        readStage.show();
+    }
+
+    private void validateInput(Stage stage){
+        try{
+            double amountParameter = Double.parseDouble(amountField.getText());
+            double interestRateParameter = Double.parseDouble(interestRateField.getText());
+            int termParameter = Integer.parseInt(termField.getText());
+            LocalDate startDateParameter = LocalDate.parse(startDateField.getText());
+            params = new LoanParameters(amountParameter, interestRateParameter, termParameter, startDateParameter);
+            stage.close();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            showAlert("введите корректные значения, обратите внимание на формат записи даты(year-mm-dd)");
+        }
+    }
+
 
     private void showPaymentGraph(List<PaymentSchedule> schedule) {
         Stage graphStage = new Stage();
