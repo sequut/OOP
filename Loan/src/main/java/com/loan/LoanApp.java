@@ -189,8 +189,6 @@ public class LoanApp extends Application {
         VBox layout = new VBox(10, amountField, interestRateField, termField, startDateField, submitButton);
         Scene scene = new Scene(layout, 800, 600);
 
-
-
         readStage.setScene(scene);
         readStage.show();
     }
